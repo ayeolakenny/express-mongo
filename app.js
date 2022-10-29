@@ -50,7 +50,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => res.type("html").send(html));
 
 app.post("/create", (req, res) => {
-  console.log(req.body);
   const user = new User({
     ...req.body,
   });
@@ -66,6 +65,21 @@ app.post("/create", (req, res) => {
           err.message || "Some error occurred while creating the Message.",
       });
     });
+});
+
+app.post("/update", function (req, res) {
+  User.findOneAndUpdate(
+    { username: req.body.username },
+    { amount: req.body.amount },
+    function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(data);
+        console.log("Data updated!");
+      }
+    }
+  );
 });
 
 app.post("/user/login", (req, res) => {
