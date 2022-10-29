@@ -75,8 +75,8 @@ app.post("/update", function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        res.send(data);
         console.log("Data updated!");
+        res.send(data);
       }
     }
   );
