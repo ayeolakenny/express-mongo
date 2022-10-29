@@ -82,6 +82,26 @@ app.post("/update", function (req, res) {
   );
 });
 
+app.get("/findall", function (req, res) {
+  User.find(function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+app.post("/delete", function (req, res) {
+  User.remove({ username: req.body.username }, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
 app.post("/user/login", (req, res) => {
   User.findOne(req.body)
     .then((data) => {
