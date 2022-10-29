@@ -17,6 +17,7 @@ const CONFIG = {
 };
 
 mongoose.connect(DATABASE_URL, CONFIG);
+// mongoose.connect("mongodb://localhost:27017/chase", CONFIG);
 mongoose.connection
   .on("open", () => console.log("Connected to Mongoose"))
   .on("close", () => console.log("Disconnected from Mongoose"))
@@ -29,6 +30,7 @@ const userSchema = new Schema({
   password: String,
   email: String,
   amount: Number,
+  name: String,
 });
 
 const User = model("User", userSchema);
@@ -48,6 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => res.type("html").send(html));
 
 app.post("/create", (req, res) => {
+  console.log(req.body);
   const user = new User({
     ...req.body,
   });
